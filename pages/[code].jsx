@@ -14,9 +14,22 @@ export default function Codes() {
         const response = await axios.get(`/api/get?id=${dynamicUrl}`);
         
         if (response.status == 200) {
-          if (response.data === "URL not found.") return setErrorMessage('No url found...')
+          if (response.data === "URL not found.") return setErrorMessage('No url found...');
+        
+          const isURL = (str) => {
+            const pattern = /^(?:(?:https?|ftp):\/\/)?(?:www\.)?(?:[\w-]+(?:\.[\w-]+)+)(?:\/[\w-]*)*(?:\?[\w\-\+=&]*)?(?:#[\w]*)?$/i;
+            return pattern.test(str);
+          };
+          
+          const url = response.data.trim(); // Trim any leading or trailing whitespace
+          
+          if (isURL(url)) {
+            router.push(url.startsWith('http') ? url : 'https://' + url);
+          } else {
+            router.push("https://" + url);
+          }
 
-          router.push(response.data);
+          
 
         } else {
           console.log("Error occurred while fetching the URL.");

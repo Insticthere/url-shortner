@@ -1,4 +1,3 @@
-import { MongoClient } from "mongodb";
 import connectMongo from "@/utils/connectMongo";
 
 export default async function handler(req, res) {
@@ -10,7 +9,7 @@ export default async function handler(req, res) {
 
   try {
     const client = await connectMongo();
-    const db = client.db(); // Assuming your connectMongo function returns a MongoClient
+    const db = client.db(); 
 
     const url = await db.collection("urls").findOne({ id });
 
