@@ -14,15 +14,14 @@ export default function Home() {
 
       if (response.status === 200) {
         const data = response.data;
-        setCopied(true);
+        setCopied({status: "Link copied!", condition : true});
         setUrl(data.id);
         navigator.clipboard.writeText(window.location.origin + '/' + data.id);
       } else {
-        console.log('Error occurred while shortening URL.');
+        setCopied({status: error.response.data.error, condition : false});
       }
     } catch (error) {
-      console.log(error);
-      console.log('Error occurred while connecting to the server.');
+      setCopied({status: error.response.data.error, condition : false});
     }
   };
 
@@ -40,7 +39,7 @@ export default function Home() {
       <div>
         <form onSubmit={handleShorten}>
           <input
-            type="url"
+            type="text"
             id="fname"
             className={`p-2 rounded-l-md bg-zinc-900 !outline-none appearance-none border-transparent focus:border-transparent focus:ring-0 ${
               copied ? 'pr-16' : ''
@@ -58,7 +57,7 @@ export default function Home() {
           </button>
         </form>
         {copied && (
-          <div className="mt-2 bg-green-500 p-2 rounded-md">Link copied!</div>
+          <div className={`mt-2  p-2 rounded-md ${ copied.condition ? "bg-green-500" : "bg-red-600"}`}>{copied.status}</div>
         )}
       </div>
     </main>

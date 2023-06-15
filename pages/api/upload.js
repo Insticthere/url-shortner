@@ -4,10 +4,10 @@ let regex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\
 
 export default async function handler(req, res) {
   if (req.method !== "GET" || !req.query.url)
-    return res.status(400).json({ error: "Please provide a URL or use the correct method." });
+    return res.status(422).json({ error: "Please provide a URL or use the correct method." });
 
     if (!req.query.url.match(regex))
-      return res.status(400).json({ error: "Please provide a valid URL." });
+      return res.status(422).json({ error: "Please provide a valid URL." });
 
   const resurl = req.query.url;
 
