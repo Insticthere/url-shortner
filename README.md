@@ -28,21 +28,16 @@ Before running the URL shortener, ensure that you have the following prerequisit
 
 ## Configuration
 
-1. Open the `.env` file in the project's root directory.
+1. Open the `.env.example` file in the project's root directory and rename it to .env .
 
-2. Set the `MONGODB_URL` variable to your MongoDB connection URL. For example:
-   ```
-   MONGODB_URL=mongodb://localhost:27017/url-shortener
-   ```
-
-   Replace `localhost:27017` with your MongoDB server address, and `url-shortener` with the desired name for your database.
+2. Set the `MONGO_URI` variable to your MongoDB connection URL. 
 
 ## Running the Application
 
 Once you have completed the installation and configuration steps, you can run the URL shortener using the following command:
 
 ```
-npm start
+npm run dev
 ```
 
 The application should now be running on `http://localhost:3000`. You can access it through your web browser.
@@ -62,13 +57,3 @@ To use the URL shortener, follow these steps:
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgements
-
-The URL shortener is built using Node.js and Express. It relies on MongoDB as the database.
-
-- [Node.js](https://nodejs.org/)
-- [Express](https://expressjs.com/)
-- [MongoDB](https://www.mongodb.com/)
-
-Feel free to modify and customize this application to suit your needs. Happy shortening!
