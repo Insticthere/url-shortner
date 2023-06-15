@@ -16,7 +16,7 @@ export default function Home() {
         const data = response.data;
         setCopied(true);
         setUrl(data.id);
-        navigator.clipboard.writeText(`url.instict.dev/`  + data.id);
+        navigator.clipboard.writeText(window.location.origin + '/' + data.id);
       } else {
         console.log('Error occurred while shortening URL.');
       }
