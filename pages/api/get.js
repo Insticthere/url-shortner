@@ -1,13 +1,5 @@
-import mongoose from "mongoose";
+import { MongoClient } from "mongodb";
 import connectMongo from "@/utils/connectMongo";
-
-const urlSchema = new mongoose.Schema({
-  id: { type: String  },
-  url: { type: String },
-  createdAt: { type: Date },
-});
-
-const URL = mongoose.model("URL", urlSchema);
 
 export default async function handler(req, res) {
   if (req.method !== "GET" || !req.query.id) {
@@ -16,10 +8,11 @@ export default async function handler(req, res) {
 
   const id = req.query.id;
 
-  await connectMongo();
-
   try {
-    const url = await URL.findOne({ id });
+    const client = await connectMongo();
+    const db = client.db(); // Assuming your connectMongo function returns a MongoClient
+
+    const url = await db.collection("urls").findOne({ id });
 
     if (!url) {
       return res.status(200).json("URL not found.");

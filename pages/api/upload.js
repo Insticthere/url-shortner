@@ -1,13 +1,6 @@
-import mongoose from "mongoose";
-import { nanoid } from 'nanoid'
-
-const urlSchema = new mongoose.Schema({
-  id: { type: String, default: () => nanoid(8), unique: true },
-  url: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
-});
-
-export const URL = mongoose.models.URL || mongoose.model("URL", urlSchema);
+import { MongoClient } from "mongodb";
+import { nanoid } from "nanoid";
+import connectMongo from "@/utils/connectMongo";
 
 export default async function handler(req, res) {
   if (req.method !== "GET" || !req.query.url)
@@ -15,16 +8,20 @@ export default async function handler(req, res) {
 
   const resurl = req.query.url;
 
-  const id = nanoid(8);
-
-  const url = new URL({
-    id,
-    url: resurl,
-    createdAt: new Date(),
-  });
-
   try {
-    await url.save();
+    const client = await connectMongo();
+    const db = client.db(); // Assuming your connectMongo function returns a MongoClient
+
+    const id = nanoid(8);
+
+    const url = {
+      id,
+      url: resurl,
+      createdAt: new Date(),
+    };
+
+    await db.collection("urls").insertOne(url);
+
     res.status(200).json({ id });
   } catch (err) {
     console.log(err);

@@ -1,5 +1,9 @@
-import mongoose  from "mongoose";
+import { MongoClient } from "mongodb";
 
-const connectMongo = async() => mongoose.connect(process.env.MONGO_URI);
+const connectMongo = async () => {
+  const client = new MongoClient(process.env.MONGO_URI);
+  await client.connect();
+  return client;
+};
 
 export default connectMongo;

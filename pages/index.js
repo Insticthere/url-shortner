@@ -40,7 +40,7 @@ export default function Home() {
       <div>
         <form onSubmit={handleShorten}>
           <input
-            type="text"
+            type="url"
             id="fname"
             className={`p-2 rounded-l-md bg-zinc-900 !outline-none appearance-none border-transparent focus:border-transparent focus:ring-0 ${
               copied ? 'pr-16' : ''
