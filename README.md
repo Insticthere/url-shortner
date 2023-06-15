@@ -1,34 +1,74 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# URL Shortener
 
-## Getting Started
+The URL Shortener is a simple web application that allows you to shorten long URLs into shorter, more manageable links. This README provides instructions on how to set up and run the URL shortener using MongoDB as the database.
 
-First, run the development server:
+## Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+Before running the URL shortener, ensure that you have the following prerequisites installed:
+
+- Node.js (v12 or higher)
+- MongoDB (v4.0 or higher)
+
+## Installation
+
+1. Clone this repository to your local machine using the following command:
+   ```
+   git clone https://github.com/Insticthere/url-shortner
+   ```
+
+2. Navigate to the cloned directory:
+   ```
+   cd url-shortener
+   ```
+
+3. Install the required dependencies using npm:
+   ```
+   npm install
+   ```
+
+## Configuration
+
+1. Open the `.env` file in the project's root directory.
+
+2. Set the `MONGODB_URL` variable to your MongoDB connection URL. For example:
+   ```
+   MONGODB_URL=mongodb://localhost:27017/url-shortener
+   ```
+
+   Replace `localhost:27017` with your MongoDB server address, and `url-shortener` with the desired name for your database.
+
+## Running the Application
+
+Once you have completed the installation and configuration steps, you can run the URL shortener using the following command:
+
+```
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application should now be running on `http://localhost:3000`. You can access it through your web browser.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Usage
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+To use the URL shortener, follow these steps:
 
-## Learn More
+1. Open your web browser and navigate to `http://localhost:3000`.
 
-To learn more about Next.js, take a look at the following resources:
+2. Enter a long URL in the input field and click the "Shorten" button.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. The application will generate a shortened URL for you. You can copy and share this URL with others.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+4. When someone accesses the shortened URL, they will be redirected to the original long URL.
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Acknowledgements
+
+The URL shortener is built using Node.js and Express. It relies on MongoDB as the database.
+
+- [Node.js](https://nodejs.org/)
+- [Express](https://expressjs.com/)
+- [MongoDB](https://www.mongodb.com/)
+
+Feel free to modify and customize this application to suit your needs. Happy shortening!
