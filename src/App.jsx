@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import Head from "next/head";
 import axios from 'axios';
 
-export default function Home() {
+export default function App() {
   const [copied, setCopied] = useState(false);
   const [url, setUrl] = useState(null);
 
@@ -10,15 +9,24 @@ export default function Home() {
     e.preventDefault();
 
     try {
-      const response = await axios.get(`/api/upload?url=${url}`);
+      const response = await axios.post(`${import.meta.env.VITE_BASEURL}/u/upload`, {
+        url : url,
+      }, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
 
+      console.log(response)
+      const data = response.data;
+      const link = window.location.origin + '/' + data.id;
       if (response.status === 200) {
-        const data = response.data;
-        setCopied({status: "Link copied!", condition : true});
+        
+        setCopied({status: `Link : ${link} `, condition : true});
         setUrl(data.id);
-        navigator.clipboard.writeText(window.location.origin + '/' + data.id);
+        navigator.clipboard.writeText(link);
       } else {
-        setCopied({status: error.response.data.error, condition : false});
+        setCopied({status: data.error, condition : false});
       }
     } catch (error) {
       setCopied({status: error.response.data.error, condition : false});
@@ -32,18 +40,13 @@ export default function Home() {
 
   return (
     <>
-    <Head>
-      <title>Url-Shorten</title>
-    </Head>
     <main className="flex min-h-screen flex-col justify-center items-center bg-zinc-950 text-white">
-      <div>
+      <div >
         <form onSubmit={handleShorten}>
           <input
             type="text"
             id="fname"
-            className={`p-2 rounded-l-md bg-zinc-900 !outline-none appearance-none border-transparent focus:border-transparent focus:ring-0 ${
-              copied ? 'pr-16' : ''
-            }`}
+            className={`p-2 rounded-l-md bg-zinc-900 !outline-none appearance-none border-transparent focus:border-transparent focus:ring-0`}
             name="firstname"
             placeholder="URL"
             required
