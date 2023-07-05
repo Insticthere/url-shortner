@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export default function App() {
   const [copied, setCopied] = useState(false);
-  const [url, setUrl] = useState(null);
+  const [url, setUrl] = useState('');
 
   const handleShorten = async (e) => {
     e.preventDefault();
@@ -21,15 +21,13 @@ export default function App() {
       const data = response.data;
       const link = window.location.origin + '/' + data.id;
       if (response.status === 200) {
-        
-        setCopied({status: `Link : ${link} `, condition : true});
-        setUrl(data.id);
+        setCopied({ status: `Link : ${link} `, condition: true });
         navigator.clipboard.writeText(link);
       } else {
-        setCopied({status: data.error, condition : false});
+        setCopied({ status: data.error, condition: false });
       }
     } catch (error) {
-      setCopied({status: error.response.data.error, condition : false});
+      setCopied({ status: error.response.data.error, condition: false });
     }
   };
 
@@ -40,30 +38,31 @@ export default function App() {
 
   return (
     <>
-    <main className="flex min-h-screen flex-col justify-center items-center bg-zinc-950 text-white">
-      <div >
-        <form onSubmit={handleShorten}>
-          <input
-            type="text"
-            id="fname"
-            className={`p-2 rounded-l-md bg-zinc-900 !outline-none appearance-none border-transparent focus:border-transparent focus:ring-0`}
-            name="firstname"
-            placeholder="URL"
-            required
-            onChange={handleUrlChange}
-          />
-          <button
-            type="submit"
-            className="bg-zinc-800 hover: text-white p-2 rounded-r-md"
-          >
-            Shorten it
-          </button>
-        </form>
-        {copied && (
-          <div className={`mt-2  p-2 rounded-md ${ copied.condition ? "bg-green-500" : "bg-red-600"}`}>{copied.status}</div>
-        )}
-      </div>
-    </main>
-  </>
+      <main className="flex min-h-screen flex-col justify-center items-center bg-zinc-950 text-white">
+        <div>
+          <form onSubmit={handleShorten}>
+            <input
+              type="text"
+              id="fname"
+              className={`p-2 rounded-l-md bg-zinc-900 !outline-none appearance-none border-transparent focus:border-transparent focus:ring-0 w-72`}
+              name="firstname"
+              placeholder="URL"
+              required
+              value={url}
+              onChange={handleUrlChange}
+            />
+            <button
+              type="submit"
+              className="bg-zinc-800 hover: text-white p-2 rounded-r-md"
+            >
+              Shorten it
+            </button>
+          </form>
+          {copied && (
+            <div className={`mt-2  p-2 rounded-md ${copied.condition ? "bg-green-500" : "bg-red-600"}`}>{copied.status}</div>
+          )}
+        </div>
+      </main>
+    </>
   );
 }
