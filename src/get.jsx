@@ -4,11 +4,11 @@ import { useParams } from 'react-router-dom';
 export default function Get() {
     const { id } = useParams();
 
-    const isURL = (str) => {
-        // eslint-disable-next-line no-useless-escape
-        const pattern = /^(?:(?:https?|ftp):\/\/)?(?:www\.)?(?:[\w-]+(?:\.[\w-]+)+)(?:\/[\w-]*)*(?:\?[\w\-\+=&]*)?(?:#[\w]*)?$/i;
-        return pattern.test(str);
-      };
+    // const isURL = (str) => {
+    //     // eslint-disable-next-line no-useless-escape
+    //     const pattern = /^(?:(?:https?|ftp):\/\/)?(?:www\.)?(?:[\w-]+(?:\.[\w-]+)+)(?:\/[\w-]*)*(?:\?[\w\-\+=&]*)?(?:#[\w]*)?$/i;
+    //     return pattern.test(str);
+    //   };
 
     const handleRedirect = async () => {
         
@@ -16,10 +16,8 @@ export default function Get() {
         if (response.data.error == "URL not found.") window.location.href = "/404"
         let url  = response.data.url;
 
-        if (isURL(url)) {
-            window.location.href = url.startsWith('http') ? url : 'https://' + url
-          } else {
-            window.location.href = "https://" + url
+        if (url) {
+            window.location.href = url
           }
     };  
 
